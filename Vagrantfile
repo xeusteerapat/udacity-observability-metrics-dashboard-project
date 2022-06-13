@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 80, host: 8080
   config.vm.network "forwarded_port", guest: 9090, host: 9090
   config.vm.network "forwarded_port", guest: 8080, host: 8080
-  #config.vm.network "forwarded_port", guest: 8888, host: 8080 
+  #config.vm.network "forwarded_port", guest: 8888, host: 8080
   config.vm.network "forwarded_port", guest: 9090, host: 8888
   config.vm.network "forwarded_port", guest: 3000, host: 3000
   config.vm.network "forwarded_port", guest: 3030, host: 3030
@@ -38,6 +38,7 @@ Vagrant.configure("2") do |config|
   #config.vm.network "forwarded_port", guest: 8000, host: 8888
   config.vm.network "forwarded_port", guest: 8888, host: 8888
   config.vm.network "forwarded_port", guest: 8000, host: 8000
+  config.vm.network "forwarded_port", guest: 6443, host: 6443 # API Access
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
@@ -64,10 +65,10 @@ Vagrant.configure("2") do |config|
   # Example for VirtualBox:
   #
   config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:clear
+    #   # Display the VirtualBox GUI when booting the machine
+    #   vb.gui = true
+    #
+    #   # Customize the amount of memory on the VM:clear
 
     vb.memory = "4096"
     #vb.memory = "2048"
@@ -85,7 +86,7 @@ Vagrant.configure("2") do |config|
   SHELL
 
   args = []
-      config.vm.provision "k3s shell script", type: "shell",
-          path: "k3s.sh",
-          args: args
+  config.vm.provision "k3s shell script", type: "shell",
+                                          path: "k3s.sh",
+                                          args: args
 end
