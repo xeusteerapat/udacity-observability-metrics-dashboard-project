@@ -3,7 +3,27 @@ from flask import Flask, render_template, request, jsonify
 import pymongo
 from flask_pymongo import PyMongo
 
+import logging
+from jaeger_client import Config
+from prometheus_flask_exporter import PrometheusMetrics
+
+import os
+
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
+
+# static information as metric. Adapted from https://github.com/rycus86/prometheus_flask_exporter/blob/master/examples/sample-signals/app/app.py
+metrics.info('app_info', 'Application info', version='1.0.3')
+
+by_full_path_counter = metrics.counter('full_path_counter', 'counting requests by full path', labels={
+                                       'full_path': lambda: request.full_path})
+
+by_endpoint_counter = metrics.counter('endpoint_counter', 'counting requestby endpoint', labels={
+                                      'endpoint': lambda: request.endpoint})
+
+endpoints = ('', 'star', 'api')
+
+JAEGER_AGENT_HOST = os.getenv('JAEGER_AGENT_HOST', 'localhost')
 
 app.config["MONGO_DBNAME"] = "example-mongodb"
 app.config[
@@ -11,6 +31,26 @@ app.config[
 ] = "mongodb://example-mongodb-svc.default.svc.cluster.local:27017/example-mongodb"
 
 mongo = PyMongo(app)
+
+# Tracing Initialization
+
+
+def init_tracer(service_name="backend-service"):
+    logging.getLogger('').handlers = []
+    logging.basicConfig(format='%(message)s', level=logging.DEBUG)
+
+    config = Config(
+        config={
+            'logging': True,
+        },
+        service_name=service_name,
+        validate=True
+    )
+
+    return config.initialize_tracer()
+
+
+tracer = init_tracer("backend-service")
 
 
 @app.route("/")
