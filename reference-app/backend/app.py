@@ -41,7 +41,14 @@ def init_tracer(service_name="backend-service"):
 
     config = Config(
         config={
+            'sampler': {
+                'type': 'const',
+                'param': 1,
+            },
             'logging': True,
+            'local_agent': {
+                'reporting_host': 'my-traces-agent.observability.svc.cluster.local'
+            }
         },
         service_name=service_name,
         validate=True
