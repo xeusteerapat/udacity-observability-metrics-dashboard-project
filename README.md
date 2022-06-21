@@ -231,3 +231,12 @@ Ans:
 *TODO*: Create a Dashboard containing graphs that capture all the metrics of your KPIs and adequately representing your SLIs and SLOs. Include a screenshot of the dashboard here, and write a text description of what graphs are represented in the dashboard.  
 
 ![07-final-dashboard](screenshots/07-final-dashboard.png)
+
+Description
+
+1. CPU Usage: This represents the CPU usage of the backend application.
+2. Memory Usage: This represents the memory usage of the backend application.
+3. Average Response Time: This represents the average response time of the application per request.
+4. 40x Errors panel: Represents the 40x (error) responses of the application.
+5. 50x Errors panel: Represents the 50x (error) responses of the application.
+6. Error Rate: Number of failed rate (non HTTP Status Code 200) response per second.
