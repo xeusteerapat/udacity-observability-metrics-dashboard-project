@@ -20,7 +20,7 @@ spec:
       - name: frontend
         image: xeusteerapat/metrics-frontend:latest
         ports:
-        - containerPort: 8083
+        - containerPort: 8080
         resources:
             requests:
               cpu: 25m
@@ -42,8 +42,8 @@ spec:
     app: frontend
   ports:
     - name: frontend
-      port: 8083
-      targetPort: 8083
+      port: 8080
+      targetPort: 8080
       nodePort: 30000
   type: LoadBalancer
 ---
