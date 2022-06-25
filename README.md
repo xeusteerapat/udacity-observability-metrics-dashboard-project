@@ -195,6 +195,8 @@ Severity: "Critical"
 
 Description: "When user send request with HTTP POST method to backend api with url endpoint "/star" it produce error 500 Internal Server Error, possible because MongoDB database is not available in local cluster."
 
+![report-error](screenshots/08-report-error.png)
+
 ## Creating SLIs and SLOs
 *TODO:* We want to create an SLO guaranteeing that our application has a 99.95% uptime per month. Name four SLIs that you would use to measure the success of this SLO.
 
