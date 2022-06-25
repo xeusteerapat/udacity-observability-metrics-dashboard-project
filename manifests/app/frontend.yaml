@@ -37,6 +37,8 @@ metadata:
     prometheus.io/port: "9090"
     prometheus.io/scrape: "true"
   name: frontend-service
+  labels:
+    app: frontend
 spec:
   selector:
     app: frontend
