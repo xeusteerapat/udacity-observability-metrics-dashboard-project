@@ -32,6 +32,7 @@ app.config[
 
 mongo = PyMongo(app)
 
+logger = logging.getLogger(__name__)
 # Tracing Initialization
 
 
@@ -100,6 +101,8 @@ def add_star():
                       'distance': new_star['distance']}
             return jsonify({'result': output})
         except Exception as e:
+            logger.error(f"Unable to add a star")
+            span.set_tag("http.status_code", "500")
             print(e)
 
 
